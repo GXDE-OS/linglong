@@ -1,0 +1,80 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: linglong
+Upstream-Contact:  UnionTech Software Technology Co., Ltd. <>
+Source: https://github.com/linuxdeepin/linglong
+
+# CI config files
+Files: .github/* .obs/* OWNERS
+License: CC0-1.0
+Copyright: None
+
+# external
+
+# qserializer
+Files: external/qserializer/*
+License: LGPL-3.0-only
+Copyright: Chen Linxuan <me@black-desk.cn>
+
+# ytj
+Files: external/ytj/*
+License: LGPL-3.0-only
+Copyright: Chen Linxuan <me@black-desk.cn>
+
+# openapi generator code
+Files: external/http/*
+License: CC0-1.0
+Copyright: None
+
+# openapi template and patch
+Files: tools/openapi-cpp-qt-client tools/no-cmake.patch tools/no-qt-keywords.patch
+License: CC0-1.0
+Copyright: None
+
+# openapi
+Files: api/http/client_swagger.json
+License: CC0-1.0
+Copyright: None
+
+# json schemas
+Files: api/JSON Schema/*.json
+License: CC0-1.0
+Copyright: None
+
+# generated code
+Files: src/linglong/builder/project/* src/linglong/builder/config/* src/linglong/package/layer/* src/linglong/repo/config/*
+License: CC0-1.0
+Copyright: None
+
+Files: cmake/CPM.cmake
+License: MIT
+Copyright: 2019-2022 Lars Melchior and contributors
+
+# some deepin permission related json configuration files
+Files: misc/linglong/permission/*.json
+License: CC0-1.0
+Copyright: None
+
+# Documents
+Files: docs/* *README.md *README.zh_CN.md *INSTALL.md
+License: CC-BY-4.0
+Copyright: UnionTech Software Technology Co., Ltd.
+
+# debian packaging configurations
+Files: debian/*
+License: CC0-1.0
+Copyright: None
+
+# Some json files contains in qrc file
+Files: src/linglong/runtime/resource/*json
+License: LGPL-3.0-only
+Copyright: UnionTech Software Technology Co., Ltd.
+
+# Test data
+Files: tests/data/* tests/src/utils/serialize/data.json tests/src/utils/serialize/data.yaml
+License: CC0-1.0
+Copyright: None
+
+# qdbusxml2cpp
+Files: tools/qdbusxml2cpp/qdbusxml2cpp.cpp
+License: GPL-3.0-only
+Copyright: 2020 The Qt Company Ltd.

@@ -1,0 +1,71 @@
+#!/bin/env bash
+
+# SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
+#
+# SPDX-License-Identifier: LGPL-3.0-or-later
+
+# linglong cli completion
+
+__ll_cli_find_subcommand()
+{
+        for i in "${COMP_WORDS[@]}"
+        do
+                if ! [[ $i = -* ]] && ! [[ $i = ll-cli ]]
+                then
+                        echo "$i"
+                        return
+                fi
+        done
+        echo ""
+        return
+}
+
+__ll_cli_get_container_list()
+{
+        ll-cli ps | tail -n+2 | awk '{print $2}' | tr '\n' ' '
+}
+
+__ll_cli_get_installed_list()
+{
+        ll-cli list | tail -n+2 | awk '{print $1}' | tr '\n' ' '
+}
+
+__ll_cli_get_app_list()
+{
+        ll-cli query . | tail -n+2 | awk '{print $1}' | tr '\n' ' '
+}
+
+_ll_cli()
+{
+        local subcommand
+        local wordlist
+
+        subcommand=$(__ll_cli_find_subcommand)
+        wordlist=$(ll-cli "$subcommand" --help | grep -Po '((?<= )-\w|(?<= )--[\w-]+)|(?<=subcommand  )\w+|^ +  \w+$' | tr '\n' ' ')
+
+        case "$subcommand" in
+                exec|kill)
+                        wordlist="$wordlist $(__ll_cli_get_container_list)"
+                ;;
+                install)
+                        wordlist="$wordlist $(__ll_cli_get_app_list)"
+                ;;
+                update|uninstall|run)
+                        wordlist="$wordlist $(__ll_cli_get_installed_list)"
+                ;;
+                repo)
+                        wordlist="$wordlist modify"
+                ;;
+        esac
+        local pre=${COMP_WORDS[COMP_CWORD-1]};
+        if [ $pre = "modify" ];then
+             wordlist="-h --help"
+        fi
+        local cur=${COMP_WORDS[COMP_CWORD]};
+        COMPREPLY=( $(compgen -W "${wordlist}" -- "${cur}") )
+
+        return 0
+}
+
+complete -F _ll_cli ll-cli
+complete -F _ll_cli llpkg
